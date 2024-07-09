@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emag Products</title>
+    <script src="{{url_for('static', filename='main.js')}}"></script>
+    <style>
+        h1:hover {
+            color: #11BDB5;
+            transform: scale(1.5);
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: auto;
+            background-color: green;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            background-color: red;
+        }
+        th {
+            background-color: #11BDB5;
+        }
+        #logo_img_id {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            height: 50%;
+            top: 50%;
+            z-index: -9999;
+        }
+
+    </style>
+</head>
+<body style="background-color:powderblue;">
+<form id="deleteForm" action="/delete_product" method="post">
+            <label for="product_name">Product Name:</label>
+            <input type="text" id="product_name" name="product_name" required><br>
+    <button type="submit" id="deleteButton">Delete</button></form><br>
+
+<form id="updatePrice" action="/modify_price" method="post">
+            <label for="product_name_to_modify">Product Name:</label>
+            <input type="text" id="product_name_to_modify" name="product_name_to_modify" required><br>
+            <label for="new_price">Product Price:</label>
+            <input type="text" id="new_price" name="new_price" required><br>
+    <button type="submit" id="modifyButton">Modifica Pretul</button></form><br>
+
+
+<form id="showForm" action="/show_expensive_prod" method="post">
+    <button type="submit" id="showButton">Show most expensive item</button><br>
+    <div id="output">
+         {% if most_expensive_product %}
+                Cel mai scump produs este {{most_expensive_product}} cu prețul de ${{ highest_price }}.
+            {% endif %}
+    </div>
+    </form>
+
+
+
+    <h1 style="text-align: center;" onclick="firstFunction()" id="titleId">Available Products</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Store</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.price }}</td>
+            <td>{{ row.store }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Logo_eMAG_%282019%29.svg/2560px-Logo_eMAG_%282019%29.svg.png" alt="Emag Logo" id="logo_img_id">
+</body>
+</html>
